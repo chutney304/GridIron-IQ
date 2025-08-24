@@ -1,0 +1,14 @@
+/* Basic CSS resets and utility classes. Feel free to replace this
+ * with TailwindCSS or another framework if desired. */
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
