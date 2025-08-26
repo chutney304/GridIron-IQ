@@ -1,53 +1,40 @@
 # GridIron IQ
 
-GridIron IQ is an analytics‑focused fantasy football dashboard. This repository
-contains a minimal React + Vite scaffold that you can build on to create
-interactive matchup visualizations, roster views, and advanced metrics for your
-league.
+GridIron IQ is a fantasy football analytics dashboard built with React and Vite.
+It syncs league data from the [Sleeper](https://api.sleeper.app) API and exposes a
+pluggable provider system for optional analytics such as projections, injuries and weather.
+
+Current tabs include:
+
+- **Matchups** – synthetic time-series chart and scoreboard for the selected week.
+- **League** – roster cards with cached player dictionary lookup.
+- **Player Analytics** – placeholder for projections, injuries and news providers.
+- **Team Analytics** – placeholder for pace and red-zone trends.
+- **Fun Metrics** – placeholder for experimental stats like Hype Volatility.
 
 ## Getting Started
 
-1. Install dependencies:
+```bash
+npm install
+npm run dev
+```
 
-   ```bash
-   npm install
-   ```
+Open <http://localhost:5173> in your browser.
 
-2. Run the development server:
+## Tests
 
-   ```bash
-   npm run dev
-   ```
+```bash
+npm test
+```
 
-3. Open your browser to `http://localhost:5173` to view the app. Edit files
-   under `src/` and the page will reload automatically.
+## Environment
 
-## Architecture
+Optional providers are controlled via env variables:
 
-This app uses the following core technologies:
+- `VITE_PROJECTIONS_ENABLED`
+- `VITE_INJURIES_ENABLED`
+- `VITE_WEATHER_ENABLED`
+- `VITE_ODDS_ENABLED`
+- `VITE_NEWS_ENABLED`
 
-- **React** for building the UI components.
-- **Vite** for bundling and development server.
-- **TypeScript** for static typing.
-- **recharts** for plotting charts.
-- **framer-motion** and **lucide-react** for animations and icons.
-
-The entry point is [`src/main.tsx`](src/main.tsx) which mounts the root
-component defined in [`src/App.tsx`](src/App.tsx).
-
-## Next Steps
-
-This scaffold only contains a basic starter page. To build out your fantasy
-football analytics dashboard:
-
-1. Add components under `src/components` for charts, roster cards, matchup
-   scoreboards, etc.
-2. Implement data fetching from the Sleeper API in a separate module (e.g.
-   `src/api/sleeper.ts`). Use `/state/nfl` to detect the current week and
-   `/league/{league_id}` and related endpoints to pull league, roster and
-   matchup data.
-3. Generate synthetic time series for matchup point progressions if desired.
-4. Optionally integrate additional providers (projections, injuries, weather,
-   odds, news) behind clearly defined interfaces.
-
-Happy coding!
+API keys should be provided as additional env variables when enabling a provider.
