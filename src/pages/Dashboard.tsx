@@ -22,6 +22,7 @@ export function Dashboard() {
   const [matchups, setMatchups] = useState<Matchup[]>([]);
   const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState<'matchups' | 'league' | 'players' | 'teams' | 'fun'>('matchups');
+  const [tab, setTab] = useState<'matchups' | 'league'>('matchups');
   const [selected, setSelected] = useState<number | null>(null);
 
   useEffect(() => {
@@ -62,11 +63,19 @@ export function Dashboard() {
           value={leagueId}
           onChange={(e) => setLeagueId(e.target.value)}
           className="w-48 rounded border px-2 py-1"
+    <div className="p-4 space-y-4">
+      <header className="flex gap-2 items-center">
+        <input
+          value={leagueId}
+          onChange={(e) => setLeagueId(e.target.value)}
+          className="border px-2 py-1"
         />
         <select
           value={week}
           onChange={(e) => setWeek(Number(e.target.value))}
           className="rounded border px-2 py-1"
+
+          className="border px-2 py-1"
         >
           {Array.from({ length: 18 }, (_, i) => i + 1).map((w) => (
             <option key={w}>{w}</option>
@@ -77,11 +86,13 @@ export function Dashboard() {
           disabled={loading}
           className="rounded border bg-blue-600 px-3 py-1 text-white disabled:opacity-50"
         >
+        <button onClick={sync} disabled={loading} className="border px-3 py-1">
           {loading ? 'Syncing...' : 'Sync Sleeper'}
         </button>
         {league && <div className="ml-auto font-bold">{league.name}</div>}
       </header>
       <nav className="flex flex-wrap gap-4 border-b pb-2">
+      <nav className="flex gap-4">
         <button onClick={() => setTab('matchups')} className={tab === 'matchups' ? 'font-bold' : ''}>
           Matchups
         </button>
@@ -108,6 +119,9 @@ export function Dashboard() {
       {tab === 'players' && <PlayerAnalytics />}
       {tab === 'teams' && <TeamAnalytics />}
       {tab === 'fun' && <FunMetrics />}
+      {tab === 'league' && (
+        <LeagueRosters rosters={rosters} users={users} />
+      )}
     </div>
   );
 }
